@@ -1,9 +1,54 @@
 {
-  "Comment": "Goal",
-  "StartAt": "SSB",
+  "Comment": "A description of my state machine",
+  "StartAt": "Entry",
   "States": {
+    "Entry": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": {
+        "Payload.$": "$",
+        "FunctionName": "ssb-app-EntryFunction-x7SfMghPAWfG"
+      },
+      "Retry": [
+        {
+          "ErrorEquals": [
+            "Lambda.ServiceException",
+            "Lambda.AWSLambdaException",
+            "Lambda.SdkClientException"
+          ],
+          "IntervalSeconds": 2,
+          "MaxAttempts": 6,
+          "BackoffRate": 2
+        }
+      ],
+      "Next": "Choice",
+      "OutputPath": "$.Payload",
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "Next": "Fail"
+        }
+      ]
+    },
+    "Fail": {
+      "Type": "Fail"
+    },
+    "Choice": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.flag",
+          "BooleanEquals": true,
+          "Next": "SSB"
+        }
+      ],
+      "Default": "Report"
+    },
     "SSB": {
       "Type": "Parallel",
+      "Next": "Report",
       "Branches": [
         {
           "StartAt": "Account and IAM Check",
@@ -11,9 +56,10 @@
             "Account and IAM Check": {
               "Type": "Task",
               "Resource": "arn:aws:states:::lambda:invoke",
+              "OutputPath": "$.Payload",
               "Parameters": {
                 "Payload.$": "$",
-                "FunctionName": "${checkAFunction}"
+                "FunctionName": "ssb-app-CheckAFunction-g7qru0rsjdaK"
               },
               "Retry": [
                 {
@@ -32,14 +78,15 @@
           }
         },
         {
-          "StartAt": "CloudTrail setting Check",
+          "StartAt": "CloudTrail Check",
           "States": {
-            "CloudTrail setting Check": {
+            "CloudTrail Check": {
               "Type": "Task",
               "Resource": "arn:aws:states:::lambda:invoke",
+              "OutputPath": "$.Payload",
               "Parameters": {
                 "Payload.$": "$",
-                "FunctionName": "${checkBFunction}"
+                "FunctionName": "ssb-app-CheckBFunction-qvVByLgkc91x"
               },
               "Retry": [
                 {
@@ -63,9 +110,10 @@
             "S3 Security Check": {
               "Type": "Task",
               "Resource": "arn:aws:states:::lambda:invoke",
+              "OutputPath": "$.Payload",
               "Parameters": {
                 "Payload.$": "$",
-                "FunctionName": "${checkCFunction}"
+                "FunctionName": "ssb-app-CheckCFunction-T7adrl0r7htS"
               },
               "Retry": [
                 {
@@ -89,9 +137,10 @@
             "Security Tools Check": {
               "Type": "Task",
               "Resource": "arn:aws:states:::lambda:invoke",
+              "OutputPath": "$.Payload",
               "Parameters": {
                 "Payload.$": "$",
-                "FunctionName": "${checkDFunction}"
+                "FunctionName": "ssb-app-CheckDFunction-vg6adNvva5Xv"
               },
               "Retry": [
                 {
@@ -110,15 +159,22 @@
           }
         }
       ],
-      "Next": "Create Report"
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "Next": "Fail"
+        }
+      ]
     },
-    "Create Report": {
+    "Report": {
       "Type": "Task",
       "Resource": "arn:aws:states:::lambda:invoke",
       "OutputPath": "$.Payload",
       "Parameters": {
-        "FunctionName": "${reportFunction}",
-        "Payload.$": "$"
+        "Payload.$": "$",
+        "FunctionName": "ssb-app-ReportFunction-SVH3vRAKYUCB"
       },
       "Retry": [
         {
@@ -132,18 +188,15 @@
           "BackoffRate": 2
         }
       ],
-      "Next": "Send Report"
-    },
-    "Send Report": {
-      "Type": "Task",
-      "Resource": "arn:aws:states:::sns:publish",
-      "Parameters": {
-        "TopicArn": "${snsTopic}",
-        "Message": {
-          "Message": "SSB Report 생성이 완료되었습니다. {Presigned URI}로 접속하시면 Report를 확인하실 수 있습니다. "
+      "End": true,
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "Next": "Fail"
         }
-      },
-      "End": true
+      ]
     }
   }
 }

@@ -255,7 +255,7 @@ Resources:
   SSBStateMachine:
     Type: 'AWS::Serverless::StateMachine'
     Properties:
-      DefinitionUri: statemachine/statemachine2.asl.json
+      DefinitionUri: statemachine/statemachine.asl.json
       DefinitionSubstitutions:
         entryFunction: !Ref EntryFunction
         checkAFunction: !Ref CheckAFunction
