@@ -47,33 +47,34 @@ latency 이슈를 해결하기 위해 Lambda의 메모리 할당량을 늘렸을
 
 - - -
 
-## 애플리케이션 실행 방법
+# How to deploy this Application
 
 1. 터미널을 열고 아래 명령어를 입력하여, 해당 Repository를 Clone 하고 디렉토리로 들어갑니다:
     ``` 
     git clone https://github.com/ottl-seo/SSB-stepfunctions
     cd SSB-stepfunctions
     ```
-1. 터미널에 아래 명령어를 입력합니다. AWS SAM을 이용하여 template.yaml파일에 정의된 리소스를 배포하는 과정입니다:
+2. 터미널에 아래 명령어를 입력합니다. AWS SAM을 이용하여 template.yaml파일에 정의된 리소스를 배포하는 과정입니다:
     ```
     sam deploy --guided
     ```
-1. Prompt에 아래와 같은 입력값이 요구됩니다. 본인의 환경에 맞춰 입력해주세요:
+3. Prompt에 아래와 같은 입력값이 요구됩니다. 본인의 환경에 맞춰 입력해주세요:
     * `stack name`: ssb-app (또는 본인이 원하는 스택 이름을 입력 가능합니다)
     * `desired AWS Region`: ap-northeast-1 (또는 원하는 AWS 리전을 입력 가능합니다)
     * Allow SAM CLI to create IAM roles with the required permissions.
 
-1. 이후 스택이 배포되며, 입력한 이메일로 SNS Topic 구독을 요청하는 이메일이 발송됩니다. 메일의 Confirm subscrption을 클릭하여 먼저 알림을 구독해주세요.
-<img width="1415" alt="image" src="https://user-images.githubusercontent.com/61778930/184087809-e98adb74-a45d-4c8b-af5e-f478e0c8c8ef.png">
+4. 이후 스택이 배포되며, 입력한 이메일로 SNS Topic 구독을 요청하는 이메일이 발송됩니다. 메일의 `Confirm subscrption`을 클릭하여 먼저 알림을 구독해주세요.
+    <img width="1415" alt="image" src="https://user-images.githubusercontent.com/61778930/184087809-e98adb74-a45d-4c8b-af5e-f478e0c8c8ef.png">
 
 
-1. [AWS Step Functions 콘솔](https://ap-northeast-1.console.aws.amazon.com/states/home?region=ap-northeast-1#/statemachines)로 이동하여, 생성된 상태머신을 '실행 시작' 버튼을 눌러 실행합니다. 
-![image](https://user-images.githubusercontent.com/61778930/184089355-bf36b7b9-7a1e-49a2-8c57-01ab7045a913.png)
+4. [AWS Step Functions 콘솔](https://ap-northeast-1.console.aws.amazon.com/states/home?region=ap-northeast-1#/statemachines)로 이동하여, 생성된 상태머신을 `실행 시작` 버튼을 눌러 실행합니다. 
+    ![image](https://user-images.githubusercontent.com/61778930/184089355-bf36b7b9-7a1e-49a2-8c57-01ab7045a913.png)
 
-1. 이후 상태머신이 아래와 같이 실행되며, SNS 구독을 한 이메일로 리포트를 다운로드할 수 있는 URL이 발송됩니다. 
-<img width="1127" alt="image" src="https://user-images.githubusercontent.com/61778930/184089516-64d2e104-ad21-46c6-b559-1ce382a1627e.png">
+5. 이후 상태머신이 아래와 같이 실행되며, SNS 구독을 한 이메일로 리포트를 다운로드할 수 있는 URL이 발송됩니다. 
+    <img width="1127" alt="image" src="https://user-images.githubusercontent.com/61778930/184089516-64d2e104-ad21-46c6-b559-1ce382a1627e.png">
 
-1. URL에 접근하여 리포트를 확인하실 수 있습니다. 
+6. URL에 접근하여 아래와 같은 리포트를 확인하실 수 있습니다. 
+    <img width="783" alt="image" src="https://user-images.githubusercontent.com/61778930/184091694-ee013745-057f-4eb6-9c87-193cd20a7cb8.png">
 
 
 - - -
