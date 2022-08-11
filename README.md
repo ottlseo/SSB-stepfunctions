@@ -41,7 +41,7 @@
 
 
 ### 📌 비용 관점
-비슷한 수준의 효율성을 내는 조건에서, Step Functions를 이용한 애플리케이션이 가장 비용 절감 효과가 있었습니다. 
+latency 이슈를 해결하기 위해 Lambda의 메모리 할당량을 늘렸을 때, 비슷한 수준의 효율성을 내는 조건에서 Step Functions를 이용한 애플리케이션이 가장 비용 절감 효과가 있었습니다. 
 
 <img width="733" alt="image" src="https://user-images.githubusercontent.com/61778930/183727981-e1c060c6-f949-4eda-8265-dc8e4b426bdf.png">
 
@@ -50,3 +50,8 @@
 ## Workshop
 
 애플리케이션의 내용과 사용 방법에 대한 자세한 안내는 [Workshop](https://catalog.us-east-1.prod.workshops.aws/workshops/43af4c8d-a61e-4b61-ad43-36f1a64804df/ko-KR)을 참고해주세요. 
+
+- - - 
+#### Contributor
+- Yoonseo Kim: Refactoring SSB with Step Functions and Conducting PoC
+- Kihoon Kwon: Developing SSB Application
