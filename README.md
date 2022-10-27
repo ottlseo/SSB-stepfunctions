@@ -49,6 +49,9 @@ latency 이슈를 해결하기 위해 Lambda의 메모리 할당량을 늘렸을
 
 # How to deploy this Application
 
+해당 애플리케이션을 실행하는 데에 SAM(Serverless Application Model) CLI 설치가 필요합니다.    
+로컬 터미널에 [SAM CLI](https://docs.aws.amazon.com/ko_kr/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html)를 Download 하거나, [AWS Cloud9](https://aws.amazon.com/ko/cloud9/) 터미널을 이용해주세요.   
+
 1. 터미널을 열고 아래 명령어를 입력하여, 해당 Repository를 Clone 하고 디렉토리로 들어갑니다:
     ``` 
     git clone https://github.com/ottl-seo/SSB-stepfunctions
@@ -61,7 +64,7 @@ latency 이슈를 해결하기 위해 Lambda의 메모리 할당량을 늘렸을
 3. Prompt에 아래와 같은 입력값이 요구됩니다. 본인의 환경에 맞춰 입력해주세요:
     * `stack name`: ssb-app (또는 본인이 원하는 스택 이름을 입력 가능합니다)
     * `desired AWS Region`: ap-northeast-1 (또는 원하는 AWS 리전을 입력 가능합니다)
-    * Allow SAM CLI to create IAM roles with the required permissions.
+    * 이후 SAM CLI, IAM role과 관련된 옵션에는 Y/N 으로 입력해주세요.(Enter를 입력해서 default setting을 설정하실 수 있습니다.)
 
 4. 이후 스택이 배포되며, 입력한 이메일로 SNS Topic 구독을 요청하는 이메일이 발송됩니다. 메일의 `Confirm subscrption`을 클릭하여 먼저 알림을 구독해주세요.
     <img width="1415" alt="image" src="https://user-images.githubusercontent.com/61778930/184087809-e98adb74-a45d-4c8b-af5e-f478e0c8c8ef.png">
